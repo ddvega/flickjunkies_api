@@ -1,20 +1,34 @@
-package com.fjapi.flickjunkies.entity;
+package com.fjapi.flickjunkies.service;
 
+import com.fjapi.flickjunkies.entity.Discover;
+import com.fjapi.flickjunkies.entity.GenreMap;
+import com.fjapi.flickjunkies.entity.Language;
+import com.fjapi.flickjunkies.entity.Movie;
+import com.fjapi.flickjunkies.repository.LanguageRepository;
+import lombok.AllArgsConstructor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-final public class Tmdb
+@Component
+@AllArgsConstructor
+@Service
+public class TmdbService
 {
-    public static String getActorId(String searchVal, String apiKey) throws IOException
+    private final LanguageRepository languageRepository;
+
+
+    public String getActorId(String searchVal, String apiKey) throws IOException
     {
         String query = "https://api.themoviedb.org/3/search/person?api_key=" + apiKey;
         query += "&language=en-US&query=" + searchVal + "&page=1" + "&include_adult=false";
@@ -24,7 +38,7 @@ final public class Tmdb
         return results.get("id").toString();
     }
 
-    public static List<Movie> movieDiscover(Discover searchData, String apiKey) throws IOException
+    public List<Movie> movieDiscover(Discover searchData, String apiKey) throws IOException
     {
         if (searchData.getTitle() != null)
         {
@@ -46,8 +60,9 @@ final public class Tmdb
     }
 
     @NotNull
-    private static List<Movie> buildMovieList(String query) throws IOException
+    private List<Movie> buildMovieList(String query) throws IOException
     {
+
         JSONObject result = queryApi(query);
         JSONArray res = (JSONArray) result.get("results");
         List<Movie> movieList = new ArrayList<>();
@@ -61,7 +76,12 @@ final public class Tmdb
             movie.setOverview(parseStringFromJsonObject(obj, "overview"));
             movie.setVote_average(parseDoubleFromJsonObject(obj, "vote_average"));
             movie.setPopularity(parseDoubleFromJsonObject(obj, "popularity"));
-            movie.setOriginal_language(parseStringFromJsonObject(obj, "original_language"));
+
+            Language lang = languageRepository.findByLanguageName(parseStringFromJsonObject(obj, "original_language"));
+            if (lang == null)
+                lang = Language.builder().languageName(parseStringFromJsonObject(obj, "original_language")).build();
+            movie.setOriginal_language(lang);
+
             movie.setPoster_path(parseStringFromJsonObject(obj, "poster_path"));
             movie.setBackdrop_path(parseStringFromJsonObject(obj, "backdrop_path"));
             movie.setRelease_date(parseStringFromJsonObject(obj, "release_date"));
@@ -73,7 +93,7 @@ final public class Tmdb
         return movieList;
     }
 
-    private static JSONObject queryApi(String queryString) throws IOException
+    private JSONObject queryApi(String queryString) throws IOException
     {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(queryString).build();
@@ -82,22 +102,22 @@ final public class Tmdb
         return new JSONObject(jsonData);
     }
 
-    private static Long parseLongFromJsonObject(JSONObject obj, String key)
+    private Long parseLongFromJsonObject(JSONObject obj, String key)
     {
         return obj.isNull(key) ? null : obj.getLong(key);
     }
 
-    private static Double parseDoubleFromJsonObject(JSONObject obj, String key)
+    private Double parseDoubleFromJsonObject(JSONObject obj, String key)
     {
         return obj.isNull(key) ? null : obj.getDouble(key);
     }
 
-    private static String parseStringFromJsonObject(JSONObject obj, String key)
+    private String parseStringFromJsonObject(JSONObject obj, String key)
     {
         return obj.isNull(key) ? null : obj.getString(key);
     }
 
-    private static JSONArray parseGenresJsonObject(JSONObject obj)
+    private JSONArray parseGenresJsonObject(JSONObject obj)
     {
         return obj.isNull("genre_ids") ? new JSONArray() : obj.getJSONArray("genre_ids");
     }

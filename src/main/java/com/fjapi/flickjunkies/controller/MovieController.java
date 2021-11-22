@@ -31,11 +31,11 @@ public class MovieController
         return movieService.searchMovies(payload);
     }
 
-//    //
-//    @PostMapping
-//    public String addMovie(@RequestBody Movie payload) throws JsonProcessingException
-//    {
-//        return movieService.AddMovie(payload);
-//    }
+    //
+    @PostMapping
+    public String addMovie(@RequestBody Movie payload) throws JsonProcessingException
+    {
+        return movieService.AddMovie(payload);
+    }
 }
 

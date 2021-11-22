@@ -1,9 +1,8 @@
 package com.fjapi.flickjunkies.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fjapi.flickjunkies.entity.Discover;
-import com.fjapi.flickjunkies.entity.Genre;
 import com.fjapi.flickjunkies.entity.Movie;
-import com.fjapi.flickjunkies.entity.Tmdb;
 import com.fjapi.flickjunkies.repository.MovieRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,8 @@ public class MovieService
     @Autowired
     private String getApiKey;
     private final MovieRepository movieRepository;
-    private final Genre genreList = new Genre();
+    private TmdbService tmdbService;
+    // private final Genre genreList = new Genre();
 
     public List<Movie> getAllMovies()
     {
@@ -38,9 +38,9 @@ public class MovieService
         return null;
     }
 
-//    public String AddMovie(Movie payload) throws JsonProcessingException
-//    {
-//        Movie savedMovie = getMovieById(payload.getId());
+    public String AddMovie(Movie payload) throws JsonProcessingException
+    {
+        // Movie savedMovie = getMovieById(payload.getId());
 //        if (savedMovie != null)
 //        {
 //
@@ -48,50 +48,44 @@ public class MovieService
 //            return "Movie with id " + savedMovie.getId() + " already in database.";
 //        } else
 //        {
-//
-//            movieRepository.insert(payload);
-//            Movie addedMovie = getMovieById(payload.getId());
-//            System.out.println("Movie with id " + addedMovie.getId() + " added to Movie database.");
-//            return "Movie with id " + addedMovie.getId() + " added to Movie database.";
+
+        // movieRepository.insert(payload);
+        movieRepository.save(payload);
+        Movie addedMovie = getMovieById(payload.getId());
+        System.out.println("Movie with id " + addedMovie.getId() + " added to Movie database.");
+        return "Movie with id " + addedMovie.getId() + " added to Movie database.";
 //        }
-//
-//    }
+
+    }
 
     public List<Movie> searchMovies(Map<String, Object> payload) throws IOException
     {
         Discover searchData = new Discover();
 
-        if (payload.containsKey("page"))
-            searchData.setPage(payload.get("page").toString());
+        if (payload.containsKey("page")) searchData.setPage(payload.get("page").toString());
 
         if (payload.containsKey("title"))
         {
             searchData.setTitle(payload.get("title").toString());
-            return Tmdb.movieDiscover(searchData, getApiKey);
+            return tmdbService.movieDiscover(searchData, getApiKey);
         }
 
-        if (payload.containsKey("genre"))
-            searchData.setGenre(payload.get("genre").toString());
+        if (payload.containsKey("genre")) searchData.setGenre(payload.get("genre").toString());
 
         if (payload.containsKey("actor"))
-            searchData.setActorId(Tmdb.getActorId(payload.get("actor").toString(), getApiKey));
+            searchData.setActorId(tmdbService.getActorId(payload.get("actor").toString(), getApiKey));
 
-        if (payload.containsKey("release_date_min"))
-            searchData.setDateMIN(payload.get("release_date_min").toString());
+        if (payload.containsKey("release_date_min")) searchData.setDateMIN(payload.get("release_date_min").toString());
 
-        if (payload.containsKey("release_date_max"))
-            searchData.setDateMAX(payload.get("release_date_max").toString());
+        if (payload.containsKey("release_date_max")) searchData.setDateMAX(payload.get("release_date_max").toString());
 
-        if (payload.containsKey("rating_min"))
-            searchData.setRatingMIN(payload.get("rating_min").toString());
+        if (payload.containsKey("rating_min")) searchData.setRatingMIN(payload.get("rating_min").toString());
 
-        if (payload.containsKey("rating_max"))
-            searchData.setRatingMAX(payload.get("rating_max").toString());
+        if (payload.containsKey("rating_max")) searchData.setRatingMAX(payload.get("rating_max").toString());
 
-        if (payload.containsKey("language"))
-            searchData.setLanguage(payload.get("language").toString());
+        if (payload.containsKey("language")) searchData.setLanguage(payload.get("language").toString());
 
-        return Tmdb.movieDiscover(searchData, getApiKey);
+        return tmdbService.movieDiscover(searchData, getApiKey);
     }
 }
 

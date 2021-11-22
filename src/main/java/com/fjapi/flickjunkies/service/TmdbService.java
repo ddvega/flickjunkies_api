@@ -5,6 +5,7 @@ import com.fjapi.flickjunkies.entity.GenreMap;
 import com.fjapi.flickjunkies.entity.Language;
 import com.fjapi.flickjunkies.entity.Movie;
 import com.fjapi.flickjunkies.repository.LanguageRepository;
+import com.fjapi.flickjunkies.util.ApiClient;
 import lombok.AllArgsConstructor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -32,7 +33,8 @@ public class TmdbService
     {
         String query = "https://api.themoviedb.org/3/search/person?api_key=" + apiKey;
         query += "&language=en-US&query=" + searchVal + "&page=1" + "&include_adult=false";
-        JSONObject result = queryApi(query);
+        // JSONObject result = queryApi(query);
+        JSONObject result = ApiClient.queryApi(query);
         JSONArray res = (JSONArray) result.get("results");
         JSONObject results = (JSONObject) res.get(0);
         return results.get("id").toString();
@@ -63,7 +65,8 @@ public class TmdbService
     private List<Movie> buildMovieList(String query) throws IOException
     {
 
-        JSONObject result = queryApi(query);
+        // JSONObject result = queryApi(query);
+        JSONObject result = ApiClient.queryApi(query);
         JSONArray res = (JSONArray) result.get("results");
         List<Movie> movieList = new ArrayList<>();
 
@@ -86,21 +89,21 @@ public class TmdbService
             movie.setBackdrop_path(parseStringFromJsonObject(obj, "backdrop_path"));
             movie.setRelease_date(parseStringFromJsonObject(obj, "release_date"));
             movie.setVote_count(parseLongFromJsonObject(obj, "vote_count"));
-            movie.setGenre_ids(GenreMap.buildGenreList(parseGenresJsonObject(obj)));
+            movie.setGenres(GenreMap.buildGenreList(parseGenresJsonObject(obj, "genre_ids")));
             movieList.add(movie);
 
         }
         return movieList;
     }
 
-    private JSONObject queryApi(String queryString) throws IOException
-    {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(queryString).build();
-        Response response = client.newCall(request).execute();
-        String jsonData = Objects.requireNonNull(response.body()).string();
-        return new JSONObject(jsonData);
-    }
+//    private JSONObject queryApi(String queryString) throws IOException
+//    {
+//        OkHttpClient client = new OkHttpClient();
+//        Request request = new Request.Builder().url(queryString).build();
+//        Response response = client.newCall(request).execute();
+//        String jsonData = Objects.requireNonNull(response.body()).string();
+//        return new JSONObject(jsonData);
+//    }
 
     private Long parseLongFromJsonObject(JSONObject obj, String key)
     {
@@ -117,9 +120,9 @@ public class TmdbService
         return obj.isNull(key) ? null : obj.getString(key);
     }
 
-    private JSONArray parseGenresJsonObject(JSONObject obj)
+    private JSONArray parseGenresJsonObject(JSONObject obj, String key)
     {
-        return obj.isNull("genre_ids") ? new JSONArray() : obj.getJSONArray("genre_ids");
+        return obj.isNull(key) ? new JSONArray() : obj.getJSONArray(key);
     }
 
 

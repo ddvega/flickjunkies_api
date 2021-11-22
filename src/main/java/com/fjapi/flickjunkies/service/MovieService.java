@@ -22,7 +22,6 @@ public class MovieService
     private String getApiKey;
     private final MovieRepository movieRepository;
     private TmdbService tmdbService;
-    // private final Genre genreList = new Genre();
 
     public List<Movie> getAllMovies()
     {
@@ -40,22 +39,10 @@ public class MovieService
 
     public String AddMovie(Movie payload) throws JsonProcessingException
     {
-        // Movie savedMovie = getMovieById(payload.getId());
-//        if (savedMovie != null)
-//        {
-//
-//            System.out.println("Movie with id " + savedMovie.getId() + " already in database.");
-//            return "Movie with id " + savedMovie.getId() + " already in database.";
-//        } else
-//        {
-
-        // movieRepository.insert(payload);
         movieRepository.save(payload);
         Movie addedMovie = getMovieById(payload.getId());
         System.out.println("Movie with id " + addedMovie.getId() + " added to Movie database.");
         return "Movie with id " + addedMovie.getId() + " added to Movie database.";
-//        }
-
     }
 
     public List<Movie> searchMovies(Map<String, Object> payload) throws IOException

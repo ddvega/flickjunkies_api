@@ -1,4 +1,4 @@
-package com.fjapi.flickjunkies.config;
+package com.fjapi.flickjunkies.util;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

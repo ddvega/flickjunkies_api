@@ -1,13 +1,10 @@
-package com.fjapi.flickjunkies.entity;
-import org.json.JSONArray;
+package com.fjapi.flickjunkies.util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class GenreMap
+public class GenreNameIdMap
 {
     private static final Map<String, Integer> name2id;
     private static final Map<Integer, String> id2name;
@@ -60,14 +57,6 @@ public class GenreMap
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static List<Genre> buildGenreList(JSONArray arr)
-    {
-        List<Genre> genreList = new ArrayList<>();
-        for(Object a : arr)
-            genreList.add(Genre.builder().id((Integer)a).title(findName((Integer) a)).build());
-        return genreList;
     }
 }
 

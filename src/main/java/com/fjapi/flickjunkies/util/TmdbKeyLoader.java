@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class LoadTmdbKey
+public class TmdbKeyLoader
 {
     @Value("${tmdb.key}")
     private String apiKey;
@@ -17,3 +17,5 @@ public class LoadTmdbKey
     }
 
 }
+
+

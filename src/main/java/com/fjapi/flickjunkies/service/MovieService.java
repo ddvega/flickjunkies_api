@@ -1,7 +1,7 @@
 package com.fjapi.flickjunkies.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fjapi.flickjunkies.entity.Discover;
+import com.fjapi.flickjunkies.util.SearchObject;
 import com.fjapi.flickjunkies.entity.Movie;
 import com.fjapi.flickjunkies.repository.MovieRepository;
 import lombok.AllArgsConstructor;
@@ -47,32 +47,34 @@ public class MovieService
 
     public List<Movie> searchMovies(Map<String, Object> payload) throws IOException
     {
-        Discover searchData = new Discover();
+        SearchObject searchObject = new SearchObject();
 
-        if (payload.containsKey("page")) searchData.setPage(payload.get("page").toString());
+        if (payload.containsKey("page")) searchObject.setPage(payload.get("page").toString());
 
         if (payload.containsKey("title"))
         {
-            searchData.setTitle(payload.get("title").toString());
-            return tmdbService.movieDiscover(searchData, getApiKey);
+            searchObject.setTitle(payload.get("title").toString());
+            return tmdbService.movieDiscover(searchObject, getApiKey);
         }
 
-        if (payload.containsKey("genre")) searchData.setGenre(payload.get("genre").toString());
+        if (payload.containsKey("genre")) searchObject.setGenre(payload.get("genre").toString());
 
         if (payload.containsKey("actor"))
-            searchData.setActorId(tmdbService.getActorId(payload.get("actor").toString(), getApiKey));
+            searchObject.setActorId(tmdbService.getActorId(payload.get("actor").toString(), getApiKey));
 
-        if (payload.containsKey("release_date_min")) searchData.setDateMIN(payload.get("release_date_min").toString());
+        if (payload.containsKey("date_min")) searchObject.setDateMin(payload.get("date_min").toString());
 
-        if (payload.containsKey("release_date_max")) searchData.setDateMAX(payload.get("release_date_max").toString());
+        if (payload.containsKey("date_max")) searchObject.setDateMax(payload.get("date_max").toString());
 
-        if (payload.containsKey("rating_min")) searchData.setRatingMIN(payload.get("rating_min").toString());
+        if (payload.containsKey("rating_min")) searchObject.setRatingMin(payload.get("rating_min").toString());
 
-        if (payload.containsKey("rating_max")) searchData.setRatingMAX(payload.get("rating_max").toString());
+        if (payload.containsKey("rating_max")) searchObject.setRatingMax(payload.get("rating_max").toString());
 
-        if (payload.containsKey("language")) searchData.setLanguage(payload.get("language").toString());
+        if (payload.containsKey("language")) searchObject.setLanguage(payload.get("language").toString());
 
-        return tmdbService.movieDiscover(searchData, getApiKey);
+        if (payload.containsKey("vote_count_min")) searchObject.setVoteCount(payload.get("vote_count_min").toString());
+
+        return tmdbService.movieDiscover(searchObject, getApiKey);
     }
 }
 

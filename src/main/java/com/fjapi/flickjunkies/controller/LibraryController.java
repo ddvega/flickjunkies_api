@@ -24,11 +24,6 @@ public class LibraryController
         return libraryService.addLibrary(payload);
     }
 
-    //    @PostMapping("/edit")
-//    public String editLibraryName(@RequestBody Map<String, Object> payload)
-//    {
-//        return libraryService.editLibraryName(payload);
-//    }
     @PostMapping("/{libraryId}/edit")
     public String editLibraryName(@PathVariable("libraryId") Long libraryId, @RequestBody Map<String, Object> payload)
     {

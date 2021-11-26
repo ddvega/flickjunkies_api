@@ -1,0 +1,299 @@
+{
+	"info": {
+		"_postman_id": "9ddb980f-c1e1-473d-af1b-fbe2e7e42352",
+		"name": "flickjunkies",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "search movie",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"big lebowski\"\n}\n// {\n//     \"page\":\"1\",\n//     \"genre\":\"action\",\n//     \"actor\":\"matt damon\",\n//     \"date_min\":\"2010-06-01\",\n//     \"date_max\":\"2021-06-20\",\n//     \"rating_min\":\"6.0\",\n//     \"rating_max\":\"10.0\",\n//     \"language\":\"en\",\n//     \"vote_count_min\":\"100\"\n// }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/movie/search",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movie",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add david",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"stringId\":\"76adf83daf3dg\",\n    \"email\":\"daviddvega@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add robert",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"stringId\":\"rt78shetf87k\",\n    \"email\":\"robert@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add bourne identity",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 2501,\n        \"title\": \"The Bourne Identity\",\n        \"overview\": \"Wounded to the brink of death and suffering from amnesia, Jason Bourne is rescued at sea by a fisherman. With nothing to go on but a Swiss bank account number, he starts to reconstruct his life, but finds that many people he encounters want him dead. However, Bourne realizes that he has the combat and mental skills of a world-class spy—but who does he work for?\",\n        \"vote_average\": 7.4,\n        \"popularity\": 35.706,\n        \"language\": {\n            \"languageId\": 1,\n            \"languageName\": \"en\"\n        },\n        \"poster_path\": \"/vN6jGCuzefysLVFrzK3Vs6xAdu1.jpg\",\n        \"backdrop_path\": \"/uSkcH2bcDBkUZCZMPcLSzaMY0td.jpg\",\n        \"release_date\": \"2002-06-14\",\n        \"vote_count\": 7392,\n        \"genres\": [\n            {\n                \"id\": 28,\n                \"name\": \"Action\"\n            },\n            {\n                \"id\": 18,\n                \"name\": \"Drama\"\n            },\n            {\n                \"id\": 9648,\n                \"name\": \"Mystery\"\n            },\n            {\n                \"id\": 53,\n                \"name\": \"Thriller\"\n            }\n        ]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/movie",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add Seobok (korean)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 586047,\n        \"title\": \"Seobok\",\n        \"overview\": \"A former intelligence agent gets involved with the first human clone, Seo Bok, who others seek, causing trouble.\",\n        \"vote_average\": 7.5,\n        \"popularity\": 219.699,\n        \"language\": {\n            \"languageId\": 2,\n            \"languageName\": \"ko\"\n        },\n        \"poster_path\": \"/nxxuWC32Y6TULj4VnVwMPUFLIpK.jpg\",\n        \"backdrop_path\": \"/yC4DRg5aGgNpkHpUDpLtBqzownS.jpg\",\n        \"release_date\": \"2021-04-12\",\n        \"vote_count\": 91,\n        \"genres\": [\n            {\n                \"id\": 878,\n                \"name\": \"Science Fiction\"\n            },\n            {\n                \"id\": 28,\n                \"name\": \"Action\"\n            }\n        ]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/movie",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add 7 deadly sins (japanese) Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 843241,\n        \"title\": \"The Seven Deadly Sins: Cursed by Light\",\n        \"overview\": \"With the help of the \\\"Dragon Sin of Wrath\\\" Meliodas and the worst rebels in history, the Seven Deadly Sins, the \\\"Holy War\\\", in which four races, including Humans, Goddesses, Fairies and Giants fought against the Demons, is finally over. At the cost of the \\\"Lion Sin of Pride\\\" Escanor's life, the Demon King was defeated and the world regained peace. After that, each of the Sins take their own path.\",\n        \"vote_average\": 8.2,\n        \"popularity\": 1063.994,\n        \"language\": {\n            \"languageId\": null,\n            \"languageName\": \"ja\"\n        },\n        \"poster_path\": \"/k0ThmZQl5nHe4JefC2bXjqtgYp0.jpg\",\n        \"backdrop_path\": \"/7h5WAPAcUzOWpp2jrwHBB48790j.jpg\",\n        \"release_date\": \"2021-07-02\",\n        \"vote_count\": 227,\n        \"genres\": [\n            {\n                \"id\": 16,\n                \"name\": \"Animation\"\n            },\n            {\n                \"id\": 28,\n                \"name\": \"Action\"\n            }\n        ]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/movie",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add quaranflicks david",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"quaranflick\",\n    \"user\":{\n        \"stringId\":\"76adf83daf3dg\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/library",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"library"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EDIT quaranflicks david",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"qflicks\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/library/1/edit",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"library",
+						"1",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add quaranflicks robert",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"quaranflick\",\n    \"user\":{\n        \"stringId\":\"rt78shetf87k\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/library",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"library"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add horror library",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"best horror\",\n    \"user\":{\n        \"stringId\":\"76adf83daf3dg\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/library",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"library"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add bourne to quaranflicks david",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id\": 2501,\n        \"title\": \"The Bourne Identity\",\n        \"overview\": \"Wounded to the brink of death and suffering from amnesia, Jason Bourne is rescued at sea by a fisherman. With nothing to go on but a Swiss bank account number, he starts to reconstruct his life, but finds that many people he encounters want him dead. However, Bourne realizes that he has the combat and mental skills of a world-class spy—but who does he work for?\",\n        \"vote_average\": 7.4,\n        \"popularity\": 35.706,\n        \"language\": {\n            \"languageId\": 1,\n            \"languageName\": \"en\"\n        },\n        \"poster_path\": \"/vN6jGCuzefysLVFrzK3Vs6xAdu1.jpg\",\n        \"backdrop_path\": \"/uSkcH2bcDBkUZCZMPcLSzaMY0td.jpg\",\n        \"release_date\": \"2002-06-14\",\n        \"vote_count\": 7392,\n        \"genres\": [\n            {\n                \"id\": 28,\n                \"name\": \"Action\"\n            },\n            {\n                \"id\": 18,\n                \"name\": \"Drama\"\n            },\n            {\n                \"id\": 9648,\n                \"name\": \"Mystery\"\n            },\n            {\n                \"id\": 53,\n                \"name\": \"Thriller\"\n            }\n        ]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/library/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"library",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

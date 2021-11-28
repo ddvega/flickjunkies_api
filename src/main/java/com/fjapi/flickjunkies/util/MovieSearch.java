@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchObject
+public class MovieSearch
 {
     public String actorId = null;
     public String title = null;

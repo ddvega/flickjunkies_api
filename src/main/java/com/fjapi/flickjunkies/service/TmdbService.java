@@ -1,6 +1,6 @@
 package com.fjapi.flickjunkies.service;
 
-import com.fjapi.flickjunkies.util.SearchObject;
+import com.fjapi.flickjunkies.util.MovieSearch;
 import com.fjapi.flickjunkies.entity.Movie;
 import com.fjapi.flickjunkies.util.ApiClient;
 import lombok.AllArgsConstructor;
@@ -33,31 +33,31 @@ public class TmdbService
         return results.get("id").toString();
     }
 
-    public List<Movie> movieDiscover(SearchObject searchObject, String apiKey) throws IOException
+    public List<Movie> movieDiscover(MovieSearch movieSearch, String apiKey) throws IOException
     {
-        String query = buildQuery(searchObject, apiKey);
+        String query = buildQuery(movieSearch, apiKey);
         return buildMovieList(query);
     }
 
-    private String buildQuery(SearchObject searchObject, String apiKey)
+    private String buildQuery(MovieSearch movieSearch, String apiKey)
     {
-        if (searchObject.getTitle() != null)
+        if (movieSearch.getTitle() != null)
         {
             String query = "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey;
-            query += "&page=" + searchObject.getPage() + "&query=" + searchObject.getTitle();
+            query += "&page=" + movieSearch.getPage() + "&query=" + movieSearch.getTitle();
             return query;
         }
 
         String query = "https://api.themoviedb.org/3/discover/movie?api_key=" + apiKey;
-        query += "&page=" + searchObject.getPage() + "&sort_by=vote_average.desc&include_adult=false&include_video=false";
-        if (searchObject.getRatingMin() != null) query += "&vote_average.gte=" + searchObject.getRatingMin();
-        if (searchObject.getRatingMax() != null) query += "&vote_average.lte=" + searchObject.getRatingMax();
-        if (searchObject.getActorId() != null) query += "&with_people=" + searchObject.getActorId();
-        if (searchObject.getDateMin() != null) query += "&primary_release_date.gte=" + searchObject.getDateMin();
-        if (searchObject.getDateMax() != null) query += "&primary_release_date.lte=" + searchObject.getDateMax();
-        if (searchObject.getVoteCount() != null) query += "&vote_count.gte=" + searchObject.getVoteCount();
-        if (searchObject.getGenre() != null) query += "&with_genres=" + searchObject.getGenre();
-        if (searchObject.getLanguage() != null) query += "&with_original_language=" + searchObject.getLanguage();
+        query += "&page=" + movieSearch.getPage() + "&sort_by=vote_average.desc&include_adult=false&include_video=false";
+        if (movieSearch.getRatingMin() != null) query += "&vote_average.gte=" + movieSearch.getRatingMin();
+        if (movieSearch.getRatingMax() != null) query += "&vote_average.lte=" + movieSearch.getRatingMax();
+        if (movieSearch.getActorId() != null) query += "&with_people=" + movieSearch.getActorId();
+        if (movieSearch.getDateMin() != null) query += "&primary_release_date.gte=" + movieSearch.getDateMin();
+        if (movieSearch.getDateMax() != null) query += "&primary_release_date.lte=" + movieSearch.getDateMax();
+        if (movieSearch.getVoteCount() != null) query += "&vote_count.gte=" + movieSearch.getVoteCount();
+        if (movieSearch.getGenre() != null) query += "&with_genres=" + movieSearch.getGenre();
+        if (movieSearch.getLanguage() != null) query += "&with_original_language=" + movieSearch.getLanguage();
         return query;
     }
 

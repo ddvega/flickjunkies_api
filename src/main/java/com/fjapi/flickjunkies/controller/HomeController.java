@@ -1,6 +1,6 @@
 package com.fjapi.flickjunkies.controller;
 
-import com.fjapi.flickjunkies.config.UserService;
+import com.fjapi.flickjunkies.service.UserService;
 import com.fjapi.flickjunkies.entity.JwtRequest;
 import com.fjapi.flickjunkies.entity.JwtResponse;
 import com.fjapi.flickjunkies.util.JWTUtility;
@@ -10,8 +10,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-import java.nio.charset.StandardCharsets;
 
 @CrossOrigin(origins="http://localhost:3000/")
 @RestController

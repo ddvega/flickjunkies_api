@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @ToString
-// @Table(name = "user", uniqueConstraints = @UniqueConstraint(name = "string_id_unique", columnNames = "string_id"))
+@Table(name = "user", uniqueConstraints = @UniqueConstraint(name = "username_unique", columnNames = "username"))
 public class User
 {
     @Id
@@ -25,6 +25,7 @@ public class User
             generator = "user_sequence"
     )
     private Long id;
+    @Column(name = "username", nullable = false)
     private String username;
     private String password;
     private String role;

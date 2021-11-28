@@ -1,8 +1,7 @@
 package com.fjapi.flickjunkies.filter;
 
-import com.fjapi.flickjunkies.config.UserService;
+import com.fjapi.flickjunkies.service.UserService;
 import com.fjapi.flickjunkies.util.JWTUtility;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

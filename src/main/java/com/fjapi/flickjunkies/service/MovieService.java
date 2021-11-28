@@ -1,12 +1,15 @@
 package com.fjapi.flickjunkies.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fjapi.flickjunkies.util.SearchObject;
+import com.fjapi.flickjunkies.util.MovieSearch;
 import com.fjapi.flickjunkies.entity.Movie;
 import com.fjapi.flickjunkies.repository.MovieRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +23,18 @@ import java.util.Map;
 @Slf4j
 public class MovieService
 {
+    @Value("${tmdb.key}")
+    private String apiKey;
+
+//    @Value("${jwt.secret}")
+//    private String secretKey;
+
+
+
     @Autowired
-    private String getApiKey;
     private final MovieRepository movieRepository;
+
+    @Autowired
     private TmdbService tmdbService;
 
     public List<Movie> getAllMovies()
@@ -52,34 +64,34 @@ public class MovieService
     public List<Movie> searchMovies(Map<String, Object> payload) throws IOException
     {
         log.info("Searching TMDB and returning a list of movies.");
-        SearchObject searchObject = new SearchObject();
+        MovieSearch movieSearch = new MovieSearch();
 
-        if (payload.containsKey("page")) searchObject.setPage(payload.get("page").toString());
+        if (payload.containsKey("page")) movieSearch.setPage(payload.get("page").toString());
 
         if (payload.containsKey("title"))
         {
-            searchObject.setTitle(payload.get("title").toString());
-            return tmdbService.movieDiscover(searchObject, getApiKey);
+            movieSearch.setTitle(payload.get("title").toString());
+            return tmdbService.movieDiscover(movieSearch, apiKey);
         }
 
-        if (payload.containsKey("genre")) searchObject.setGenre(payload.get("genre").toString());
+        if (payload.containsKey("genre")) movieSearch.setGenre(payload.get("genre").toString());
 
         if (payload.containsKey("actor"))
-            searchObject.setActorId(tmdbService.getActorId(payload.get("actor").toString(), getApiKey));
+            movieSearch.setActorId(tmdbService.getActorId(payload.get("actor").toString(), apiKey));
 
-        if (payload.containsKey("date_min")) searchObject.setDateMin(payload.get("date_min").toString());
+        if (payload.containsKey("date_min")) movieSearch.setDateMin(payload.get("date_min").toString());
 
-        if (payload.containsKey("date_max")) searchObject.setDateMax(payload.get("date_max").toString());
+        if (payload.containsKey("date_max")) movieSearch.setDateMax(payload.get("date_max").toString());
 
-        if (payload.containsKey("rating_min")) searchObject.setRatingMin(payload.get("rating_min").toString());
+        if (payload.containsKey("rating_min")) movieSearch.setRatingMin(payload.get("rating_min").toString());
 
-        if (payload.containsKey("rating_max")) searchObject.setRatingMax(payload.get("rating_max").toString());
+        if (payload.containsKey("rating_max")) movieSearch.setRatingMax(payload.get("rating_max").toString());
 
-        if (payload.containsKey("language")) searchObject.setLanguage(payload.get("language").toString());
+        if (payload.containsKey("language")) movieSearch.setLanguage(payload.get("language").toString());
 
-        if (payload.containsKey("vote_count_min")) searchObject.setVoteCount(payload.get("vote_count_min").toString());
+        if (payload.containsKey("vote_count_min")) movieSearch.setVoteCount(payload.get("vote_count_min").toString());
 
-        return tmdbService.movieDiscover(searchObject, getApiKey);
+        return tmdbService.movieDiscover(movieSearch, apiKey);
     }
 }
 

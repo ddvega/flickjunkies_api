@@ -1,6 +1,6 @@
 package com.fjapi.flickjunkies.controller;
 
-import com.fjapi.flickjunkies.config.UserService;
+import com.fjapi.flickjunkies.service.UserService;
 import com.fjapi.flickjunkies.entity.User;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ public class UserController
 {
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping("/new")
     public String addUser(@RequestBody User payload)
     {
         return userService.addUser(payload);

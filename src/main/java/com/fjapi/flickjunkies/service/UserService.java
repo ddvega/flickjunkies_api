@@ -1,5 +1,6 @@
-package com.fjapi.flickjunkies.config;
+package com.fjapi.flickjunkies.service;
 
+import com.fjapi.flickjunkies.config.CustomUserDetails;
 import com.fjapi.flickjunkies.entity.User;
 import com.fjapi.flickjunkies.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class UserService implements UserDetailsService
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
         User user = userRepository.findUserByUsername(username);
-        if(user == null)
+        if (user == null)
             throw new UsernameNotFoundException("User not found.");
 
         return new CustomUserDetails(user);
@@ -27,6 +28,9 @@ public class UserService implements UserDetailsService
 
     public String addUser(User user)
     {
+        User storedUser = userRepository.findUserByUsername(user.getUsername());
+        if (storedUser != null)
+            return "User " + user.getUsername() + " already exists in database.";
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);

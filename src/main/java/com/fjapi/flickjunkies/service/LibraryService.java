@@ -23,8 +23,8 @@ public class LibraryService
 
     public String addLibrary(Library library)
     {
-        User user = userRepository.getUserByStringId(library.getUser().getStringId());
-        if (user == null) return "User does not exist!!!!!";
+        // User user = userRepository.getUserByStringId(library.getUser().getStringId());
+        User user = userRepository.getById(library.getUser().getId());
         library.setUser(user);
         libraryRepository.save(library);
         return "library added";

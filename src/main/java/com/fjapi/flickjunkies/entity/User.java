@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @ToString
-@Table(name = "user", uniqueConstraints = @UniqueConstraint(name = "string_id_unique", columnNames = "string_id"))
+// @Table(name = "user", uniqueConstraints = @UniqueConstraint(name = "string_id_unique", columnNames = "string_id"))
 public class User
 {
     @Id
@@ -24,10 +24,14 @@ public class User
             strategy = GenerationType.SEQUENCE,
             generator = "user_sequence"
     )
-    private Long userId;
-    @Column(name = "string_id", nullable = false)
-    private String stringId;
-    private String email;
+    private Long id;
+    private String username;
+    private String password;
+    private String role;
+    // private Long userId;
+//    @Column(name = "string_id", nullable = false)
+//    private String stringId;
+    // private String email;
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //    private List<Library> libraries;
 

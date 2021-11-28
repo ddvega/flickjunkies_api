@@ -22,7 +22,7 @@ public class Library
     private String name;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "userId")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

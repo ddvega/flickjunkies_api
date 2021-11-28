@@ -5,6 +5,7 @@ import com.fjapi.flickjunkies.util.SearchObject;
 import com.fjapi.flickjunkies.entity.Movie;
 import com.fjapi.flickjunkies.repository.MovieRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.Map;
 @Component
 @AllArgsConstructor
 @Service
+@Slf4j
 public class MovieService
 {
     @Autowired
@@ -30,6 +32,7 @@ public class MovieService
 
     public Movie getMovieById(Long id)
     {
+        log.info("Getting movie object for id " + id + ".");
         if (movieRepository.findById(id).isPresent())
         {
             return movieRepository.findById(id).get();
@@ -39,6 +42,7 @@ public class MovieService
 
     public String AddMovie(Movie payload) throws JsonProcessingException
     {
+        log.info("Adding " + payload.getTitle() + " to database.");
         movieRepository.save(payload);
         Movie addedMovie = getMovieById(payload.getId());
         System.out.println("Movie with id " + addedMovie.getId() + " added to Movie database.");
@@ -47,6 +51,7 @@ public class MovieService
 
     public List<Movie> searchMovies(Map<String, Object> payload) throws IOException
     {
+        log.info("Searching TMDB and returning a list of movies.");
         SearchObject searchObject = new SearchObject();
 
         if (payload.containsKey("page")) searchObject.setPage(payload.get("page").toString());

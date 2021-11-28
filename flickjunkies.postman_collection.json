@@ -6,13 +6,89 @@
 	},
 	"item": [
 		{
-			"name": "search movie",
+			"name": "home",
 			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "authenticate get JWT",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\":\"big lebowski\"\n}\n// {\n//     \"page\":\"1\",\n//     \"genre\":\"action\",\n//     \"actor\":\"matt damon\",\n//     \"date_min\":\"2010-06-01\",\n//     \"date_max\":\"2021-06-20\",\n//     \"rating_min\":\"6.0\",\n//     \"rating_max\":\"10.0\",\n//     \"language\":\"en\",\n//     \"vote_count_min\":\"100\"\n// }",
+					"raw": "{\n    \"username\":\"lee69\",\n    \"password\":\"puton\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/authenticate",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all movies",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{url}}/movie",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search movie",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"good will hunting\"\n}\n// {\n//     \"page\":\"1\",\n//     \"genre\":\"action\",\n//     \"actor\":\"matt damon\",\n//     \"date_min\":\"2010-06-01\",\n//     \"date_max\":\"2021-06-20\",\n//     \"rating_min\":\"6.0\",\n//     \"rating_max\":\"10.0\",\n//     \"language\":\"en\",\n//     \"vote_count_min\":\"100\"\n// }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -39,7 +115,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"stringId\":\"76adf83daf3dg\",\n    \"email\":\"daviddvega@gmail.com\"\n}",
+					"raw": "{\n    \"username\":\"ddvega\",\n    \"password\":\"$2a$12$5sugkHETGzlFTEckRg9Vie.yIuEoycajJJJWieE/njo229FYc/kea\",\n    \"role\":\"admin\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -65,7 +141,33 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"stringId\":\"rt78shetf87k\",\n    \"email\":\"robert@gmail.com\"\n}",
+					"raw": "{\n    \"username\":\"rrobert\",\n    \"password\":\"$2a$12$stayQX0X/kxUU8AL3o9Khu0OWScNvJVej/rJK8uUKCctvyOnHLvum\",\n    \"role\":\"user\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add lee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"rrobert\",\n    \"password\":\"$2a$12$stayQX0X/kxUU8AL3o9Khu0OWScNvJVej/rJK8uUKCctvyOnHLvum\",\n    \"role\":\"user\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -169,7 +271,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"quaranflick\",\n    \"user\":{\n        \"stringId\":\"76adf83daf3dg\"\n    }\n}",
+					"raw": "{\n    \"name\":\"quaranflick\",\n    \"user\":{\n        \"id\":1\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -223,7 +325,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"quaranflick\",\n    \"user\":{\n        \"stringId\":\"rt78shetf87k\"\n    }\n}",
+					"raw": "{\n    \"name\":\"quaranflickd\",\n    \"user\":{\n        \"id\":2\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -249,7 +351,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"best horror\",\n    \"user\":{\n        \"stringId\":\"76adf83daf3dg\"\n    }\n}",
+					"raw": "{\n    \"name\":\"best horror\",\n    \"user\":{\n        \"id\": 1\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -294,6 +396,36 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZHZlZ2EiLCJleHAiOjE2MzgwODg0MzIsImlhdCI6MTYzODA3MDQzMn0.elKtoiWSV6OZqu-T0J_P_QfFB09DCD0tVrcNExOuenjzDEPFP4Vvn4vg3PLnT2koiOGnz6hEpFcKNHUvWzKzhg",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:3000/")
+// @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/movie")
 @AllArgsConstructor
@@ -20,14 +20,14 @@ public class MovieController
 
     private final MovieService movieService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Movie> fetchAllMovies()
     {
         return movieService.getAllMovies();
     }
 
-    @PostMapping("/search")
-    public List<Movie> fetchAllMovies(@RequestBody Map<String, Object> payload) throws IOException
+    @PostMapping("/tmdb")
+    public List<Movie> searchTmdb(@RequestBody Map<String, Object> payload) throws IOException
     {
         return movieService.searchMovies(payload);
     }

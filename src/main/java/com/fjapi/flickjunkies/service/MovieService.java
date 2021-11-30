@@ -26,11 +26,6 @@ public class MovieService
     @Value("${tmdb.key}")
     private String apiKey;
 
-//    @Value("${jwt.secret}")
-//    private String secretKey;
-
-
-
     @Autowired
     private final MovieRepository movieRepository;
 

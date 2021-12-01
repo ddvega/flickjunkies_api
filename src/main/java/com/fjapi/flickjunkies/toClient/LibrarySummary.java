@@ -1,4 +1,4 @@
-package com.fjapi.flickjunkies.util;
+package com.fjapi.flickjunkies.toClient;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LibraryObj
+public class LibrarySummary
 {
     private Long libraryId;
     private String name;
     private String username;
+    private Integer count;
 }

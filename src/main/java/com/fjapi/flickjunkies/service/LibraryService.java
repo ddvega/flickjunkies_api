@@ -5,14 +5,14 @@ import com.fjapi.flickjunkies.entity.Movie;
 import com.fjapi.flickjunkies.entity.User;
 import com.fjapi.flickjunkies.repository.LibraryRepository;
 import com.fjapi.flickjunkies.repository.UserRepository;
-import com.fjapi.flickjunkies.util.LibraryObj;
+import com.fjapi.flickjunkies.toClient.LibraryMovies;
+import com.fjapi.flickjunkies.toClient.LibrarySummary;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @AllArgsConstructor
@@ -35,16 +35,35 @@ public class LibraryService
         return library.getName() + " added to user " + user.getUsername();
     }
 
-    public List<LibraryObj> getAllLibraries()
+    public List<LibrarySummary> getAllLibraries()
     {
-        List<LibraryObj> libs = new ArrayList<>();
+        List<LibrarySummary> libs = new ArrayList<>();
         List<Library> library = libraryRepository.findAll();
         for (Library l : library)
         {
-            libs.add(LibraryObj.builder().libraryId(l.getLibraryId()).name(l.getName()).username(l.getUser().getUsername()).build());
+            libs.add(LibrarySummary.builder()
+                    .libraryId(l.getLibraryId())
+                    .name(l.getName())
+                    .username(l.getUser().getUsername())
+                    .count(l.getCount()).build());
         }
         return libs;
     }
+
+    public LibraryMovies getLibraryById(Long libraryId)
+    {
+        Library library = libraryRepository.findById(libraryId).get();
+        System.out.println(library.getMovies());
+        return LibraryMovies.builder()
+                .libraryId(library.getLibraryId())
+                .name(library.getName())
+                .username(library.getUser().getUsername())
+                .userId(library.getUser().getId())
+                .movieCount(library.getCount())
+                .movies(library.getMovies())
+                .build();
+    }
+
     public String editLibraryName(Long libraryId, String updatedName)
     {
         if (updatedName == null || updatedName.equals(""))
@@ -71,5 +90,13 @@ public class LibraryService
         library.addMovie(movie);
         libraryRepository.save(library);
         return "movie added";
+    }
+
+    public String deleteMovieFromLibrary(Long libraryId, Long movieId)
+    {
+        Library library = libraryRepository.getById(libraryId);
+        library.deleteMovie(movieId);
+        libraryRepository.save(library);
+        return "movie deleted";
     }
 }

@@ -1,16 +1,14 @@
 package com.fjapi.flickjunkies.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fjapi.flickjunkies.entity.Library;
 import com.fjapi.flickjunkies.entity.Movie;
 import com.fjapi.flickjunkies.service.LibraryService;
-import com.fjapi.flickjunkies.util.LibraryObj;
+import com.fjapi.flickjunkies.toClient.LibraryMovies;
+import com.fjapi.flickjunkies.toClient.LibrarySummary;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 // @CrossOrigin(origins = "http://localhost:3000/")
 @RestController
@@ -32,12 +30,19 @@ public class LibraryController
 //        return libraryService.editLibraryName(libraryId, payload);
 //    }
     @GetMapping("/all")
-    public List<LibraryObj> getAllLibraries()
+    public List<LibrarySummary> getAllLibraries()
     {
         return libraryService.getAllLibraries();
     }
 
-    @GetMapping("/{libraryId}")
+    @GetMapping("/id/{libraryId}")
+    public LibraryMovies getLibraryById (@PathVariable("libraryId") Long libraryId)
+    {
+        return libraryService.getLibraryById(libraryId);
+    }
+
+    // @GetMapping("/{libraryId}")
+    @PatchMapping("/{libraryId}")
     public String editLibraryName(@PathVariable("libraryId")Long libraryId, @RequestParam String name)
     {
         return libraryService.editLibraryName(libraryId, name);
@@ -49,5 +54,12 @@ public class LibraryController
     {
         // log.info("Inside addMovieLibrary of LibraryController");
         return libraryService.addMovieToLibrary(movie, libraryId);
+    }
+
+    @DeleteMapping("/{libraryId}/{movieId}")
+    public String deleteMovieFromLibrary(@PathVariable("libraryId") Long libraryId,
+                                         @PathVariable("movieId") Long movieId )
+    {
+        return libraryService.deleteMovieFromLibrary(libraryId, movieId);
     }
 }

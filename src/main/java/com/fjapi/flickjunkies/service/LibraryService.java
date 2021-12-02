@@ -8,6 +8,7 @@ import com.fjapi.flickjunkies.repository.UserRepository;
 import com.fjapi.flickjunkies.toClient.LibraryMovies;
 import com.fjapi.flickjunkies.toClient.LibrarySummary;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,8 @@ public class LibraryService
 {
 
     private final LibraryRepository libraryRepository;
-    private final UserRepository userRepository;
+
+    private final UserService userService;
 
     public String addLibrary(Library library)
     {
@@ -29,11 +31,27 @@ public class LibraryService
         if (savedLibrary != null)
             return library.getName() + " already exists.";
 
-        User user = userRepository.findUserByUsername(library.getUser().getUsername());
-        library.setUser(user);
+        library.setUser(userService.getUserFromToken());
         libraryRepository.save(library);
-        return library.getName() + " added to user " + user.getUsername();
+        return library.getName() + " added to user " + library.getUser().getUsername();
     }
+
+    public String deleteLibrary(Long libraryId)
+    {
+        Library savedLibrary = libraryRepository.getById(libraryId);
+        User user = userService.getUserFromToken();
+        if (!savedLibrary.getUser().equals(user))
+        {
+            return "library does not belong to user";
+        }
+        libraryRepository.delete(savedLibrary);
+        return "library deleted";
+    }
+
+//    public void deleteAllUsersLibraries(Long id)
+//    {
+//        libraryRepository.deleteLibrariesByUser_IdContains(id);
+//    }
 
     public List<LibrarySummary> getAllLibraries()
     {
@@ -77,6 +95,12 @@ public class LibraryService
         }
 
         library = libraryRepository.getById(libraryId);
+        User user = userService.getUserFromToken();
+
+        if (!library.getUser().equals(user))
+        {
+            return "Library does not belong to current user!";
+        }
         library.setName(updatedName);
         libraryRepository.save(library);
         return "Library " + library.getLibraryId() + " updated to " + updatedName + ".";

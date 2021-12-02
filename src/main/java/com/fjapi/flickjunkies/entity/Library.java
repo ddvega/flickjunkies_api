@@ -23,11 +23,11 @@ public class Library
     @Column(name = "library_name")
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(name = "movie_library_map", joinColumns = @JoinColumn(name = "library_id", referencedColumnName =
             "libraryId"), inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
     private Set<Movie> movies;

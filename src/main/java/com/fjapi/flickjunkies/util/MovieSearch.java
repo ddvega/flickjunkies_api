@@ -17,7 +17,7 @@ public class MovieSearch
     public String dateMax = null;
     public String ratingMin = null;
     public String ratingMax = null;
-    public String voteCount = "100";
+    public String voteCount = "500";
     public String language = "en";
 
 

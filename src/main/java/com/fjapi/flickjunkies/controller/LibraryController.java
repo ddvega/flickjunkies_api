@@ -19,9 +19,9 @@ public class LibraryController
     private final LibraryService libraryService;
 
     @PostMapping
-    public String addLibrary(@RequestBody Library payload)
+    public String addLibrary(@RequestBody Library library)
     {
-        return libraryService.addLibrary(payload);
+        return libraryService.addLibrary(library);
     }
 
 //    @PostMapping("/{libraryId}/edit")
@@ -54,6 +54,13 @@ public class LibraryController
     {
         // log.info("Inside addMovieLibrary of LibraryController");
         return libraryService.addMovieToLibrary(movie, libraryId);
+    }
+
+    // @GetMapping("/{libraryId}")
+    @DeleteMapping("/{libraryId}")
+    public String deleteLibrary(@PathVariable("libraryId")Long libraryId)
+    {
+        return libraryService.deleteLibrary(libraryId);
     }
 
     @DeleteMapping("/{libraryId}/{movieId}")

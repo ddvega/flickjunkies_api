@@ -30,7 +30,7 @@ public class LibraryController
 //        return libraryService.editLibraryName(libraryId, payload);
 //    }
     @GetMapping("/all")
-    public List<LibrarySummary> getAllLibraries()
+    public List<Library> getAllLibraries()
     {
         return libraryService.getAllLibraries();
     }

@@ -1,5 +1,6 @@
 package com.fjapi.flickjunkies.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fjapi.flickjunkies.entity.Library;
 import com.fjapi.flickjunkies.entity.Movie;
 import com.fjapi.flickjunkies.entity.User;
@@ -8,6 +9,7 @@ import com.fjapi.flickjunkies.repository.UserRepository;
 import com.fjapi.flickjunkies.toClient.LibraryMovies;
 import com.fjapi.flickjunkies.toClient.LibrarySummary;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ public class LibraryService
     private final LibraryRepository libraryRepository;
 
     private final UserService userService;
+
+    private final MovieService movieService;
 
     public String addLibrary(Library library)
     {
@@ -48,22 +52,13 @@ public class LibraryService
         return "library deleted";
     }
 
-//    public void deleteAllUsersLibraries(Long id)
-//    {
-//        libraryRepository.deleteLibrariesByUser_IdContains(id);
-//    }
-
-    public List<LibrarySummary> getAllLibraries()
+    public List<Library> getAllLibraries()
     {
-        List<LibrarySummary> libs = new ArrayList<>();
+        List<Library> libs = new ArrayList<>();
         List<Library> library = libraryRepository.findAll();
         for (Library l : library)
         {
-            libs.add(LibrarySummary.builder()
-                    .libraryId(l.getLibraryId())
-                    .name(l.getName())
-                    .username(l.getUser().getUsername())
-                    .count(l.getCount()).build());
+            libs.add(l.summary());
         }
         return libs;
     }
@@ -106,11 +101,13 @@ public class LibraryService
         return "Library " + library.getLibraryId() + " updated to " + updatedName + ".";
     }
 
+    @SneakyThrows
     public String addMovieToLibrary(Movie movie, Long libraryId)
     {
         Library library = libraryRepository.getById(libraryId);
         if (library.getMovies().contains(movie))
             return movie.getTitle() + " already in database.";
+        movieService.AddMovie(movie);
         library.addMovie(movie);
         libraryRepository.save(library);
         return "movie added";

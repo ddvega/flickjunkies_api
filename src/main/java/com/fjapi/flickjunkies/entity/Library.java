@@ -1,5 +1,6 @@
 package com.fjapi.flickjunkies.entity;
 
+import com.google.gson.JsonObject;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,6 +34,9 @@ public class Library
     private Set<Movie> movies;
     private Integer count = 0;
 
+    @Transient
+    private String username;
+
     public void addMovie(Movie movie)
     {
         movies.add(movie);
@@ -44,5 +48,25 @@ public class Library
         movies.removeIf(movie1 -> Objects.equals(movie1.getId(), movieId));
         count -= 1;
     }
+
+    public Library summary()
+    {
+        return Library.builder().libraryId(libraryId).name(name).username(user.getUsername()).count(count).build();
+    }
+
+//    public String summary()
+//    {
+//
+//
+//        // Build Json Object
+//        JsonObject library = new JsonObject();
+//        library.addProperty("libraryId", libraryId);
+//        library.addProperty("name", name);
+//        library.addProperty("username", user.getUsername());
+//        library.addProperty("count", count);
+//
+//
+//        return library.toString();
+//    }
 
 }

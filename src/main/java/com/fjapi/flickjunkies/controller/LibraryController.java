@@ -24,7 +24,7 @@ public class LibraryController
         return libraryService.addLibrary(library);
     }
 
-//    @PostMapping("/{libraryId}/edit")
+    //    @PostMapping("/{libraryId}/edit")
 //    public String editLibraryName(@PathVariable("libraryId") Long libraryId, @RequestBody Map<String, Object> payload)
 //    {
 //        return libraryService.editLibraryName(libraryId, payload);
@@ -36,14 +36,14 @@ public class LibraryController
     }
 
     @GetMapping("/id/{libraryId}")
-    public LibraryMovies getLibraryById (@PathVariable("libraryId") Long libraryId)
+    public LibraryMovies getLibraryById(@PathVariable("libraryId") Long libraryId)
     {
         return libraryService.getLibraryById(libraryId);
     }
 
     // @GetMapping("/{libraryId}")
-    @PatchMapping("/{libraryId}")
-    public String editLibraryName(@PathVariable("libraryId")Long libraryId, @RequestParam String name)
+    @PatchMapping("/{libraryId}/{name}")
+    public String editLibraryName(@PathVariable("libraryId") Long libraryId, @PathVariable("name") String name)
     {
         return libraryService.editLibraryName(libraryId, name);
     }
@@ -58,14 +58,14 @@ public class LibraryController
 
     // @GetMapping("/{libraryId}")
     @DeleteMapping("/{libraryId}")
-    public String deleteLibrary(@PathVariable("libraryId")Long libraryId)
+    public String deleteLibrary(@PathVariable("libraryId") Long libraryId)
     {
         return libraryService.deleteLibrary(libraryId);
     }
 
     @DeleteMapping("/{libraryId}/{movieId}")
     public String deleteMovieFromLibrary(@PathVariable("libraryId") Long libraryId,
-                                         @PathVariable("movieId") Long movieId )
+                                         @PathVariable("movieId") Long movieId)
     {
         return libraryService.deleteMovieFromLibrary(libraryId, movieId);
     }

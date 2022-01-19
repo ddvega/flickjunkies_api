@@ -5,7 +5,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>flickjunkies-web</module>
-		<module>flickjunkies-core</module>
+		<module>flickjunkies-service</module>
+		<module>flickjunkies-repo</module>
 	</modules>
     <parent>
 		<groupId>org.springframework.boot</groupId>

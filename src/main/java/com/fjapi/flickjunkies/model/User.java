@@ -1,9 +1,8 @@
-package com.fjapi.flickjunkies.entity;
+package com.fjapi.flickjunkies.model;
 
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data

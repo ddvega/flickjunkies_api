@@ -1,6 +1,6 @@
 package com.fjapi.flickjunkies.repository;
 
-import com.fjapi.flickjunkies.entity.Movie;
+import com.fjapi.flickjunkies.model.Movie;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

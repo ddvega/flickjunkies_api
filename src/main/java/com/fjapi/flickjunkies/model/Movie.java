@@ -1,9 +1,6 @@
-package com.fjapi.flickjunkies.entity;
+package com.fjapi.flickjunkies.model;
 
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

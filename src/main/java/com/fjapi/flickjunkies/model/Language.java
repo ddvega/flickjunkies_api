@@ -1,4 +1,4 @@
-package com.fjapi.flickjunkies.entity;
+package com.fjapi.flickjunkies.model;
 
 import lombok.*;
 

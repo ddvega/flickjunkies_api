@@ -1,36 +1,31 @@
 package com.fjapi.flickjunkies.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fjapi.flickjunkies.entity.Library;
-import com.fjapi.flickjunkies.entity.Movie;
-import com.fjapi.flickjunkies.entity.User;
+import com.fjapi.flickjunkies.dto.LibraryDTO;
+import com.fjapi.flickjunkies.model.Library;
+import com.fjapi.flickjunkies.model.Movie;
+import com.fjapi.flickjunkies.model.User;
 import com.fjapi.flickjunkies.repository.LibraryRepository;
-import com.fjapi.flickjunkies.repository.UserRepository;
-import com.fjapi.flickjunkies.toClient.LibraryMovies;
-import com.fjapi.flickjunkies.toClient.LibrarySummary;
-import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-@AllArgsConstructor
+
 @Service
-public class LibraryService
-{
+public class LibraryService {
 
     private final LibraryRepository libraryRepository;
-
     private final UserService userService;
-
     private final MovieService movieService;
 
-    public String addLibrary(Library library)
-    {
+    public LibraryService(LibraryRepository libraryRepository, UserService userService, MovieService movieService) {
+        this.libraryRepository = libraryRepository;
+        this.userService = userService;
+        this.movieService = movieService;
+    }
+
+    public String addLibrary(Library library) {
         Library savedLibrary = libraryRepository.getLibraryByName(library.getName());
         if (savedLibrary != null)
             return library.getName() + " already exists.";
@@ -40,60 +35,40 @@ public class LibraryService
         return library.getName() + " added to user " + library.getUser().getUsername();
     }
 
-    public String deleteLibrary(Long libraryId)
-    {
+    public String deleteLibrary(Long libraryId) {
         Library savedLibrary = libraryRepository.getById(libraryId);
         User user = userService.getUserFromToken();
-        if (!savedLibrary.getUser().equals(user))
-        {
+        if (!savedLibrary.getUser().equals(user)) {
             return "library does not belong to user";
         }
         libraryRepository.delete(savedLibrary);
         return "library deleted";
     }
 
-    public List<Library> getAllLibraries()
-    {
-        List<Library> libs = new ArrayList<>();
+    public List<LibraryDTO> getAllLibraries() {
+        List<LibraryDTO> libs = new ArrayList<>();
         List<Library> library = libraryRepository.findAll();
-        for (Library l : library)
-        {
-            libs.add(l.summary());
-        }
+        library.forEach(lib -> libs.add(LibraryDTO.buildLibraryDTO(lib)));
         return libs;
     }
 
-    public LibraryMovies getLibraryById(Long libraryId)
-    {
-        Library library = libraryRepository.findById(libraryId).get();
-        System.out.println(library.getMovies());
-        return LibraryMovies.builder()
-                .libraryId(library.getLibraryId())
-                .name(library.getName())
-                .username(library.getUser().getUsername())
-                .userId(library.getUser().getId())
-                .movieCount(library.getCount())
-                .movies(library.getMovies())
-                .build();
+    public LibraryDTO getLibraryById(Long libraryId) {
+        return LibraryDTO.buildLibraryDTO(libraryRepository.findById(libraryId).get());
     }
 
-    public String editLibraryName(Long libraryId, String updatedName)
-    {
-        if (updatedName == null || updatedName.equals(""))
-        {
+    public String editLibraryName(Long libraryId, String updatedName) {
+        if (updatedName == null || updatedName.equals("")) {
             return "Name cannot be empty";
         }
         Library library = libraryRepository.getLibraryByName(updatedName);
-        if (library != null)
-        {
+        if (library != null) {
             return "Name already taken. Choose another name.";
         }
 
         library = libraryRepository.getById(libraryId);
         User user = userService.getUserFromToken();
 
-        if (!library.getUser().equals(user))
-        {
+        if (!library.getUser().equals(user)) {
             return "Library does not belong to current user!";
         }
         library.setName(updatedName);
@@ -102,8 +77,7 @@ public class LibraryService
     }
 
     @SneakyThrows
-    public String addMovieToLibrary(Movie movie, Long libraryId)
-    {
+    public String addMovieToLibrary(Movie movie, Long libraryId) {
         Library library = libraryRepository.getById(libraryId);
         if (library.getMovies().contains(movie))
             return movie.getTitle() + " already in database.";
@@ -113,8 +87,7 @@ public class LibraryService
         return "movie added";
     }
 
-    public String deleteMovieFromLibrary(Long libraryId, Long movieId)
-    {
+    public String deleteMovieFromLibrary(Long libraryId, Long movieId) {
         Library library = libraryRepository.getById(libraryId);
         library.deleteMovie(movieId);
         libraryRepository.save(library);

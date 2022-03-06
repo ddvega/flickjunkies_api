@@ -1,7 +1,7 @@
 package com.fjapi.flickjunkies.repository;
 
-import com.fjapi.flickjunkies.entity.Library;
-import com.fjapi.flickjunkies.entity.User;
+import com.fjapi.flickjunkies.model.Library;
+import com.fjapi.flickjunkies.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

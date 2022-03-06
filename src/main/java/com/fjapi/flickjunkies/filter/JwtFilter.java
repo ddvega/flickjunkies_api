@@ -2,7 +2,6 @@ package com.fjapi.flickjunkies.filter;
 
 import com.fjapi.flickjunkies.service.UserService;
 import com.fjapi.flickjunkies.util.JWTUtility;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,11 +18,13 @@ import java.io.IOException;
 @Component
 public class JwtFilter extends OncePerRequestFilter
 {
-    @Autowired
-    private JWTUtility jwtUtility;
+    private final JWTUtility jwtUtility;
+    private final UserService userService;
 
-    @Autowired
-    private UserService userService;
+    public JwtFilter(JWTUtility jwtUtility, UserService userService) {
+        this.jwtUtility = jwtUtility;
+        this.userService = userService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,

@@ -24,8 +24,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter
-{
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -36,8 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     private JwtFilter jwtFilter;
 
     @Bean
-    AuthenticationProvider authenticationProvider()
-    {
+    AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(new BCryptPasswordEncoder());
@@ -46,20 +44,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 
     @Override
     @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception
-    {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception
-    {
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource()
-    {
+    CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://192.168.1.72:3000", "http://24" +
                 ".28.110.52:3000"));
@@ -74,8 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception
-    {
+    protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
                 .disable()
                 .cors()

@@ -1,4 +1,4 @@
-package com.fjapi.flickjunkies.entity;
+package com.fjapi.flickjunkies.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtRequest
+public class JwtResponse
 {
-    private String username;
-    private String password;
+    private String jwtToken;
 }

@@ -1,15 +1,18 @@
-package com.fjapi.flickjunkies.util;
+package com.fjapi.flickjunkies.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MovieSearch
+@Builder
+public class MovieSearchDTO
 {
     public String actorId = null;
+    public String actor = null;
     public String title = null;
     public String genre = null;
     public String page = "1";

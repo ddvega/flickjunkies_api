@@ -1,37 +1,37 @@
-package com.fjapi.flickjunkies.controller;
+package com.fjapi.flickjunkies.api.Home;
 
+import com.fjapi.flickjunkies.model.JwtRequest;
+import com.fjapi.flickjunkies.model.JwtResponse;
 import com.fjapi.flickjunkies.service.UserService;
-import com.fjapi.flickjunkies.entity.JwtRequest;
-import com.fjapi.flickjunkies.entity.JwtResponse;
 import com.fjapi.flickjunkies.util.JWTUtility;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-// @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-public class HomeController
+public class HomeModuleImpl implements HomeModule
 {
-    @Autowired
-    private JWTUtility jwtUtility;
+    private final JWTUtility jwtUtility;
+    private final AuthenticationManager authenticationManager;
+    private final UserService userService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    public HomeModuleImpl(JWTUtility jwtUtility, AuthenticationManager authenticationManager, UserService userService)
+    {
+        this.jwtUtility = jwtUtility;
+        this.authenticationManager = authenticationManager;
+        this.userService = userService;
+    }
 
-    @Autowired
-    private UserService userService;
-
-
-    @GetMapping("/")
+    @Override
     public String home()
     {
         return "welcome home!";
     }
 
-    @PostMapping("/authenticate")
+    @Override
     public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception
     {
         try
@@ -42,7 +42,7 @@ public class HomeController
                             jwtRequest.getPassword()
                     )
             );
-        }catch( BadCredentialsException e)
+        } catch (BadCredentialsException e)
         {
             throw new Exception("Invalid credentials", e);
         }

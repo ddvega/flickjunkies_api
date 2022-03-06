@@ -1,10 +1,9 @@
 package com.fjapi.flickjunkies.service;
 
 import com.fjapi.flickjunkies.config.CustomUserDetails;
-import com.fjapi.flickjunkies.entity.User;
+import com.fjapi.flickjunkies.model.User;
 import com.fjapi.flickjunkies.repository.LibraryRepository;
 import com.fjapi.flickjunkies.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,18 +13,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserService implements UserDetailsService
-{
-    @Autowired
-    private UserRepository userRepository;
+public class UserService implements UserDetailsService {
+    private final UserRepository userRepository;
+    private final LibraryRepository libraryRepository;
 
-    @Autowired
-    private LibraryRepository libraryRepository;
+    public UserService(UserRepository userRepository, LibraryRepository libraryRepository) {
+        this.userRepository = userRepository;
+        this.libraryRepository = libraryRepository;
+    }
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
-    {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByUsername(username);
         if (user == null)
             throw new UsernameNotFoundException("User not found.");
@@ -33,14 +32,12 @@ public class UserService implements UserDetailsService
         return new CustomUserDetails(user);
     }
 
-    public User getUserFromToken()
-    {
+    public User getUserFromToken() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userRepository.findUserByUsername(userDetails.getUsername());
     }
 
-    public String addUser(User user)
-    {
+    public String addUser(User user) {
         User storedUser = userRepository.findUserByUsername(user.getUsername());
         if (storedUser != null)
             return "User " + user.getUsername() + " already exists in database.";
@@ -51,8 +48,7 @@ public class UserService implements UserDetailsService
     }
 
     @Transactional // needed this to delete all user libraries before deleting user
-    public String deleteUser(Long id)
-    {
+    public String deleteUser(Long id) {
         User user = userRepository.getById(id);
         libraryRepository.removeAllByUserEquals(user);
         userRepository.delete(user);

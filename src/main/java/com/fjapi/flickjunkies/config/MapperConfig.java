@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class MapperConfig {
 
     @Bean
-    public ObjectMapper mapper() {
+    public ObjectMapper objectMapper() {
         // map json object to movie class
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);

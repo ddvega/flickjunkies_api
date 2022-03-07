@@ -1,12 +1,11 @@
 package com.fjapi.flickjunkies.api.Genre;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fjapi.flickjunkies.dto.MovieSearchDTO;
 import com.fjapi.flickjunkies.model.Genre;
 import com.fjapi.flickjunkies.model.Movie;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.IOException;
 import java.util.List;
 
 @RequestMapping("/genre")

@@ -8,10 +8,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Objects;
 
-final public class ApiClient
-{
-    public static JSONObject queryApi(String query) throws IOException
-    {
+final public class ApiClient {
+    public static JSONObject queryApi(String query) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(query).build();
         Response response = client.newCall(request).execute();

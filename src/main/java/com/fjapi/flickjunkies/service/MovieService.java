@@ -37,10 +37,10 @@ public class MovieService {
         return null;
     }
 
-    public String AddMovie(Movie payload) throws JsonProcessingException {
-        log.info("Adding " + payload.getTitle() + " to database.");
-        movieRepository.save(payload);
-        Movie addedMovie = getMovieById(payload.getId());
+    public String AddMovie(Movie movie) throws JsonProcessingException {
+        log.info("Adding " + movie.getTitle() + " to database.");
+        movieRepository.save(movie);
+        Movie addedMovie = getMovieById(movie.getId());
         System.out.println("Movie with id " + addedMovie.getId() + " added to Movie database.");
         return "Movie with id " + addedMovie.getId() + " added to Movie database.";
     }

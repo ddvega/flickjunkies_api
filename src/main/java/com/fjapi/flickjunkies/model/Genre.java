@@ -23,11 +23,16 @@ public class Genre
     @Column(name = "genre_name", nullable = false)
     private String name;
 
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinTable(name = "movie_genre_map", joinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
+//    private List<Movie> movieList;
+
     @Transient
-    public static List<Genre> buildGenreList(JSONArray arr) {
+    public static List<Genre> buildGenreList(JSONArray jsonArray) {
         List<Genre> genreList = new ArrayList<>();
-        for (Object a : arr)
-            genreList.add(Genre.builder().id((Integer) a).name(GenreNameIdMap.findName((Integer) a)).build());
+        jsonArray.forEach(genre ->
+                genreList.add(Genre.builder().id((Integer) genre).name(GenreNameIdMap.findName((Integer) genre)).build()));
         return genreList;
     }
 

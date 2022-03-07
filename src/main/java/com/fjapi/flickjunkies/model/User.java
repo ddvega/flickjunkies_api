@@ -11,8 +11,7 @@ import javax.persistence.*;
 @Builder
 @ToString
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(name = "username_unique", columnNames = "username"))
-public class User
-{
+public class User {
     @Id
     @SequenceGenerator(
             name = "user_sequence",
@@ -28,11 +27,4 @@ public class User
     private String username;
     private String password;
     private String role;
-    // private Long userId;
-//    @Column(name = "string_id", nullable = false)
-//    private String stringId;
-    // private String email;
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<Library> libraries;
-
 }

@@ -6,9 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,8 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Table(name = "movie")
-public class Movie
-{
+public class Movie {
     @Id
     private Long id;
     private String title;

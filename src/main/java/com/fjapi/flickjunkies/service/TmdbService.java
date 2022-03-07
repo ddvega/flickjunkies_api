@@ -1,9 +1,12 @@
 package com.fjapi.flickjunkies.service;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fjapi.flickjunkies.dto.MovieSearchDTO;
 import com.fjapi.flickjunkies.model.Genre;
 import com.fjapi.flickjunkies.model.Movie;
 import com.fjapi.flickjunkies.util.ApiClient;
-import com.fjapi.flickjunkies.dto.MovieSearchDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,11 +18,15 @@ import java.util.List;
 
 
 @Service
+@Slf4j
 public class TmdbService {
     private final LanguageService languageService;
 
-    public TmdbService(LanguageService languageService) {
+    private final ObjectMapper objectMapper;
+
+    public TmdbService(LanguageService languageService, ObjectMapper objectMapper) {
         this.languageService = languageService;
+        this.objectMapper = objectMapper;
     }
 
 
@@ -64,31 +71,14 @@ public class TmdbService {
         List<Movie> movieList = new ArrayList<>();
 
         for (int i = 0; i < res.length(); i++) {
-            JSONObject obj = res.getJSONObject(i);
-            Movie movie = new Movie();
-            movie.setId(longFromJsonObject(obj, "id"));
-            movie.setTitle(stringFromJsonObject(obj, "title"));
-            movie.setOverview(stringFromJsonObject(obj, "overview"));
-            movie.setVote_average(doubleFromJsonObject(obj, "vote_average"));
-            movie.setPopularity(doubleFromJsonObject(obj, "popularity"));
-            movie.setLanguage(languageService.getLanguageByName(stringFromJsonObject(obj, "original_language")));
-            movie.setPoster_path(stringFromJsonObject(obj, "poster_path"));
-            movie.setBackdrop_path(stringFromJsonObject(obj, "backdrop_path"));
-            movie.setRelease_date(stringFromJsonObject(obj, "release_date"));
-            movie.setVote_count(longFromJsonObject(obj, "vote_count"));
-            movie.setGenres(Genre.buildGenreList(arrayFromJsonObject(obj, "genre_ids")));
+            JSONObject jsonObject = res.getJSONObject(i);
+            Movie movie = objectMapper.readValue(jsonObject.toString(), Movie.class);
+            movie.setLanguage(languageService.getLanguageByName(stringFromJsonObject(jsonObject, "original_language")));
+            movie.setGenres(Genre.buildGenreList(arrayFromJsonObject(jsonObject, "genre_ids")));
             movieList.add(movie);
 
         }
         return movieList;
-    }
-
-    private Long longFromJsonObject(JSONObject obj, String key) {
-        return obj.isNull(key) ? null : obj.getLong(key);
-    }
-
-    private Double doubleFromJsonObject(JSONObject obj, String key) {
-        return obj.isNull(key) ? null : obj.getDouble(key);
     }
 
     private String stringFromJsonObject(JSONObject obj, String key) {

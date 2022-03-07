@@ -4,13 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class GenreNameIdMap
-{
+public class GenreNameIdMap {
     private static final Map<String, Integer> name2id;
     private static final Map<Integer, String> id2name;
 
-    static
-    {
+    static {
         name2id = new HashMap<>();
         name2id.put("Action", 28);
         name2id.put("Adventure", 12);
@@ -35,25 +33,19 @@ public class GenreNameIdMap
         id2name = name2id.entrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
     }
 
-    public static Integer findId(String name)
-    {
-        try
-        {
+    public static Integer findId(String name) {
+        try {
             return name2id.get(name);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static String findName(Integer id)
-    {
-        try
-        {
+    public static String findName(Integer id) {
+        try {
             return id2name.get(id);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

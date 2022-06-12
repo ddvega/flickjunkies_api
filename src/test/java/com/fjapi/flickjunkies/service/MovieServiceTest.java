@@ -8,6 +8,7 @@ class MovieServiceTest
     @Test
     void getAllMovies()
     {
+        System.out.println("hello");
     }
 
     @Test
@@ -25,4 +26,5 @@ class MovieServiceTest
     void searchMovies()
     {
     }
+
 }

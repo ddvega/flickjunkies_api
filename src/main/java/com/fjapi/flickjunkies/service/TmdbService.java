@@ -1,6 +1,5 @@
 package com.fjapi.flickjunkies.service;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fjapi.flickjunkies.dto.MovieSearchDTO;
 import com.fjapi.flickjunkies.model.Genre;

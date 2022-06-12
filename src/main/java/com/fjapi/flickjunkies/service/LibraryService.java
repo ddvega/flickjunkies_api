@@ -6,6 +6,7 @@ import com.fjapi.flickjunkies.model.Movie;
 import com.fjapi.flickjunkies.model.User;
 import com.fjapi.flickjunkies.repository.LibraryRepository;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 
 
 @Service
+@Slf4j
 public class LibraryService {
 
     private final LibraryRepository libraryRepository;
@@ -49,6 +51,7 @@ public class LibraryService {
         List<LibraryDTO> libs = new ArrayList<>();
         List<Library> library = libraryRepository.findAll();
         library.forEach(lib -> libs.add(LibraryDTO.buildLibraryDTO(lib)));
+        log.info("Getting ALL libraries");
         return libs;
     }
 
@@ -91,6 +94,7 @@ public class LibraryService {
         Library library = libraryRepository.getById(libraryId);
         library.deleteMovie(movieId);
         libraryRepository.save(library);
+        log.info("Deleted Movie id " + movieId + " from library.");
         return "movie deleted";
     }
 }

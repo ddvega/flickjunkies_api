@@ -29,7 +29,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\":\"lee69\",\n    \"password\":\"puton\"\n}",
+					"raw": "{\n    \"username\":\"ddvega\",\n    \"password\":\"boludo\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -49,8 +49,80 @@
 			"response": []
 		},
 		{
+			"name": "GET username from token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add bestAction david",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"most funny 2010s\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/library",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"library"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add quaranflick rrobert",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"quaranflick\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/library",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"library"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "get all movies",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
 				"header": [
 					{
@@ -61,12 +133,13 @@
 					}
 				],
 				"url": {
-					"raw": "{{url}}/movie",
+					"raw": "{{url}}/movie/all",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"movie"
+						"movie",
+						"all"
 					]
 				}
 			},
@@ -83,12 +156,13 @@
 					{
 						"key": "Authorization",
 						"value": "{{token}}",
-						"type": "text"
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\":\"good will hunting\"\n}\n// {\n//     \"page\":\"1\",\n//     \"genre\":\"action\",\n//     \"actor\":\"matt damon\",\n//     \"date_min\":\"2010-06-01\",\n//     \"date_max\":\"2021-06-20\",\n//     \"rating_min\":\"6.0\",\n//     \"rating_max\":\"10.0\",\n//     \"language\":\"en\",\n//     \"vote_count_min\":\"100\"\n// }",
+					"raw": "{\n    \"page\" : \"1\",\n    \"genre\" : \"action\",\n    \"actor\": \"matt damon\",\n    \"date_min\" : \"2010-06-01\",\n    \"date_max\" : \"2021-06-20\",\n    \"rating_min\" : \"6.0\",\n    \"rating_max\" : \"10.00\",\n    \"vote_count_min\" : \"100\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -96,13 +170,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/movie/search",
+					"raw": "{{url}}/movie/tmdb",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"movie",
-						"search"
+						"tmdb"
 					]
 				}
 			},
@@ -111,11 +185,14 @@
 		{
 			"name": "add david",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\":\"ddvega\",\n    \"password\":\"$2a$12$5sugkHETGzlFTEckRg9Vie.yIuEoycajJJJWieE/njo229FYc/kea\",\n    \"role\":\"admin\"\n}",
+					"raw": "{\n    \"username\":\"ddvega\",\n    \"password\":\"boludo\",\n    \"role\":\"admin\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -123,12 +200,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/user",
+					"raw": "{{url}}/user/new",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"user"
+						"user",
+						"new"
 					]
 				}
 			},
@@ -137,11 +215,14 @@
 		{
 			"name": "add robert",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\":\"rrobert\",\n    \"password\":\"$2a$12$stayQX0X/kxUU8AL3o9Khu0OWScNvJVej/rJK8uUKCctvyOnHLvum\",\n    \"role\":\"user\"\n}",
+					"raw": "{\n    \"username\":\"rrobert\",\n    \"password\":\"volo\",\n    \"role\":\"user\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -149,12 +230,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/user",
+					"raw": "{{url}}/user/new",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"user"
+						"user",
+						"new"
 					]
 				}
 			},
@@ -163,11 +245,14 @@
 		{
 			"name": "add lee",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\":\"rrobert\",\n    \"password\":\"$2a$12$stayQX0X/kxUU8AL3o9Khu0OWScNvJVej/rJK8uUKCctvyOnHLvum\",\n    \"role\":\"user\"\n}",
+					"raw": "{\n    \"username\":\"lee69\",\n    \"password\":\"putonaso2\",\n    \"role\":\"user\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -175,12 +260,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/user",
+					"raw": "{{url}}/user/new",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"user"
+						"user",
+						"new"
 					]
 				}
 			},
@@ -265,113 +351,98 @@
 			"response": []
 		},
 		{
-			"name": "add quaranflicks david",
+			"name": "EDIT libraryid1 david",
 			"request": {
-				"method": "POST",
+				"method": "PATCH",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\":\"quaranflick\",\n    \"user\":{\n        \"id\":1\n    }\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "{{url}}/library",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"library"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "EDIT quaranflicks david",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\":\"qflicks\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/library/1/edit",
+					"raw": "{{url}}/library/1?name=qflcksterrrr",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"library",
-						"1",
-						"edit"
+						"1"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "qflcksterrrr"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "add quaranflicks robert",
+			"name": "EDIT libraryid2 rrobert",
 			"request": {
-				"method": "POST",
+				"method": "PATCH",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\":\"quaranflickd\",\n    \"user\":{\n        \"id\":2\n    }\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "{{url}}/library",
+					"raw": "{{url}}/library/2?name=qflicks2",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"library"
+						"library",
+						"2"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "qflicks2"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "add horror library",
+			"name": "get all libraries",
 			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\":\"best horror\",\n    \"user\":{\n        \"id\": 1\n    }\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+				"auth": {
+					"type": "noauth"
 				},
+				"method": "GET",
+				"header": [],
 				"url": {
-					"raw": "{{url}}/library",
+					"raw": "{{url}}/library/all",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"library"
+						"library",
+						"all"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "add bourne to quaranflicks david",
+			"name": "Get qflicks by id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/library/id/6",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"library",
+						"id",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add bourne to qflicks david",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -385,6 +456,24 @@
 					}
 				},
 				"url": {
+					"raw": "{{url}}/library/6",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"library",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete library 4 david",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
 					"raw": "{{url}}/library/1",
 					"host": [
 						"{{url}}"
@@ -396,6 +485,86 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "DELETE bourne from qflicks david Copy",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/library/1/2501",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"library",
+						"1",
+						"2501"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete rrobert",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/5",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all genres",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/genre/all",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"genre",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get movies by genreId",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/genre/id/878",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"genre",
+						"id",
+						"878"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -403,7 +572,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZHZlZ2EiLCJleHAiOjE2MzgwODg0MzIsImlhdCI6MTYzODA3MDQzMn0.elKtoiWSV6OZqu-T0J_P_QfFB09DCD0tVrcNExOuenjzDEPFP4Vvn4vg3PLnT2koiOGnz6hEpFcKNHUvWzKzhg",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZHZlZ2EiLCJleHAiOjE2NDY2MjM3OTEsImlhdCI6MTY0NjYwNTc5MX0.tHn2lXdjh00FZTJaiCbs_bssCRwf9f1s05t3DoMQosQas0ySy6umQBKCIeUjQx25NdIE9FuUguq557K6Z-bPmw",
 				"type": "string"
 			}
 		]
